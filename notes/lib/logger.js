@@ -8,18 +8,3 @@ const log = (payload) => {
 }
 
 module.exports = log;
-
-/*
-{
-    "app_name": "My Notes App",
-    "app_stage": "dev",
-    "service_name": "Notes Service",
-    "type": "CRITICAL",
-    "message": "Too many connections to database",
-    "callstack": "Error: Too many connections to database\n    at Runtime.module.exports.createNotes [as handler] (/var/task/handler.js:15:11)\n    at Runtime.handleOnce (/var/runtime/Runtime.js:66:25)",
-    "payload": {
-        "id": 3,
-        "title": "Evening Rituals"
-    }
-}
-*/
