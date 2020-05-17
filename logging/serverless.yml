@@ -1,0 +1,14 @@
+service: logging
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  role: arn:aws:iam::<account_id>:role/myapp-logging-role
+
+functions:
+  dispatchErrors:
+    handler: handler.dispatchErrors
+    events:
+      - sns: arn:aws:sns:us-east-1:<account_id>:PRODUCTION_ERRORS
