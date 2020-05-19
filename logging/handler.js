@@ -8,36 +8,25 @@ let generateEmailContent = (data, message) => {
   console.log("Events are:", events);
   let logData = "<br/><h2><u>Application Logs</u></h2>";
   for (let i in events) {
-    let parsedEvent = JSON.parse(events[i]["message"].split("INFO")[1].trim());
-    logData += "<p style='color: red; font-size: 16px;'><b>Status:</b>" + parsedEvent.type + "</p>";
-    logData += "<p style='font-size: 14px;'><b>Log Stream:</b> " + JSON.stringify(events[i]["logStreamName"]) + "</p>";
-    logData += "<p style='font-size: 14px;'><b>App Name:</b> " + parsedEvent.app_name + "</p>";
-    logData += "<p style='font-size: 14px;'><b>Service:</b> " + parsedEvent.service_name + "</p>";
-    logData += "<p style='font-size: 14px;'><b>Stage:</b> " + parsedEvent.app_stage + "</p>";
-    logData += "<p style='font-size: 14px;'><b>Message:</b> " + parsedEvent.message + "</p>";
-    logData += "<p style='font-size: 14px;'><b>Callstack:</b> " + parsedEvent.callstack || "N/A" + "</p>";
+    let parsedEvent = JSON.parse(events[i]['message'].split('INFO')[1].trim());
+    logData += `<p style='color: red; font-size: 16px;'><b>Status:</b>${parsedEvent.type}</p>`;
+    logData += `<p style='font-size: 14px;'><b>Log Stream:</b>${JSON.stringify(events[i]['logStreamName'])}</p>`;
+    logData += `<p style='font-size: 14px;'><b>App Name:</b>${parsedEvent.app_name}</p>`;
+    logData += `<p style='font-size: 14px;'><b>Service:</b>${parsedEvent.service_name}</p>`;
+    logData += `<p style='font-size: 14px;'><b>Stage:</b>${parsedEvent.app_stage}</p>`;
+    logData += `<p style='font-size: 14px;'><b>Message:</b>${parsedEvent.message}</p>`;
+    logData += `<p style='font-size: 14px;'><b>Callstack:</b>${parsedEvent.callstack || 'N/A'}</p>`;
     logData +=
-      "<p style='font-size: 14px;'><b>Payload:</b> <code>" + JSON.stringify(parsedEvent.payload) + "</code></p><br/>";
+      `<p style='font-size: 14px;'><b>Payload:</b> <code>${JSON.stringify(parsedEvent.payload)}</code></p><br/>`;
   }
 
   let date = new Date(message.StateChangeTime);
-  let text =
-    "Alarm Name: " +
-    "<b>" +
-    message.AlarmName +
-    "</b><br/>" +
-    'Details: <a href="https://my.example.com">Production URL</a><br/>' +
-    "Account ID: " +
-    message.AWSAccountId +
-    "<br/>" +
-    "Region: " +
-    message.Region +
-    "<br/>" +
-    "Alarm Time: " +
-    date.toString() +
-    "<br/>" +
-    logData;
-  let subject = "Details for Alarm - " + message.AlarmName;
+  let text = `Alarm Name:<b>${
+    message.AlarmName
+  }</b><br/>Details: <a href="https://my.example.com">Production URL</a><br/>Account ID:${
+    message.AWSAccountId
+  }<br/>Region:${message.Region}<br/>Alarm Time:${date.toString()}<br/>${logData}`;
+  let subject = `Details for Alarm - ${message.AlarmName} [URGENT]`;
 
   let emailContent = {
     Destination: {
