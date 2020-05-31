@@ -12,7 +12,12 @@ module.exports.createNotes = async event => {
   let data = JSON.parse(event.body);
   try {
     // create note database call
-    throw new Error("Too many connections to database");
+    log({
+      type: "INFO",
+      payload: data
+    });
+    return response(201, data);
+    
   } catch (e) {
     log({
       type: "CRITICAL",
